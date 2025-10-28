@@ -1,243 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinoy Sarap Vending Machine</title>
-    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use Inter font --><style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #1e293b; /* Dark slate background */
-        }
-        .vending-machine {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
-            border: 8px solid #0f172a; /* Dark border */
-            background-color: #334155; /* Industrial blue-gray */
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 20px 100%;
-        }
-        .product-item {
-            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
-            border-bottom: 4px solid #1f2937;
-        }
-        .product-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
-            border-bottom: 4px solid #60a5fa; /* Blue highlight on hover */
-        }
-        .display-screen {
-            min-height: 4rem;
-            text-shadow: 2px 2px 4px #000000;
-        }
-        /* Custom Keypad Button Style */
-        .keypad-btn {
-            box-shadow: 0 4px 0 #1f2937; /* Darker shadow */
-            transition: all 0.05s ease;
-        }
-        .keypad-btn:active {
-            box-shadow: 0 1px 0 #1f2937;
-            transform: translateY(3px);
-        }
-        .product-image {
-            width: 80px; /* Adjust as needed */
-            height: 80px; /* Adjust as needed */
-            object-fit: contain; /* Ensures the image fits without cropping */
-            margin: 0 auto 0.5rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinoy Sarap Vending Machine</title>
+
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Use Inter font -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1e293b; /* Dark slate background */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .vending-machine {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+      border: 8px solid #0f172a; /* Dark border */
+      background-color: #334155; /* Industrial blue-gray */
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 20px 100%;
+    }
+
+    .product-item {
+      transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+      border-bottom: 4px solid #1f2937;
+    }
+    .product-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+      border-bottom: 4px solid #60a5fa;
+    }
+
+    .display-screen {
+      min-height: 4rem;
+      text-shadow: 2px 2px 4px #000000;
+    }
+
+    .keypad-btn {
+      box-shadow: 0 4px 0 #1f2937;
+      transition: all 0.05s ease;
+    }
+    .keypad-btn:active {
+      box-shadow: 0 1px 0 #1f2937;
+      transform: translateY(3px);
+    }
+
+    .product-image {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin: 0 auto 0.5rem;
+    }
+
+    /* ---- Footer styling ---- */
+    .footer {
+      background-color: #0f1b2b;
+      color: #87cefa;
+      text-align: center;
+      padding: 12px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      margin-top: auto;
+    }
+  </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
 
-    <div id="app" class="vending-machine w-full max-w-4xl p-4 md:p-8 rounded-xl">
+<body class="p-4 md:p-8 min-h-screen flex flex-col items-center justify-center">
 
-        <h1 class="text-4xl font-bold text-center mb-6 text-sky-400 uppercase tracking-widest">
-            Pinoy Sarap Machine
-        </h1>
-        <p class="text-center text-gray-200 mb-8 italic">
-            "Kain muna, bago mag-break!" - Select a code below.
-        </p>
+  <div id="app" class="vending-machine w-full max-w-4xl p-4 md:p-8 rounded-xl">
+    <h1 class="text-4xl font-bold text-center mb-6 text-sky-400 uppercase tracking-widest">
+      Pinoy Sarap Machine
+    </h1>
+    <p class="text-center text-gray-200 mb-8 italic">
+      "Kain muna, bago mag-break!" - Select a code below.
+    </p>
 
-        <div class="flex flex-col lg:flex-row gap-6">
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 1. Product Display Area -->
+      <div class="lg:w-3/5 bg-gray-900/90 p-4 rounded-lg shadow-inner border border-gray-700">
+        <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div>
+      </div>
 
-            <!-- 1. Product Display Area --><div class="lg:w-3/5 bg-gray-900/90 p-4 rounded-lg shadow-inner border border-gray-700">
-                <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    <!-- Products will be injected here by JS --></div>
-            </div>
-
-            <!-- 2. Controls & Display Area --><div class="lg:w-2/5 flex flex-col gap-6">
-
-                <!-- Display Screen --><div class="display-screen bg-blue-800 text-sky-300 p-3 rounded-lg border-4 border-blue-900 flex flex-col justify-center text-center">
-                    <p id="message-display" class="xl font-mono font-bold">WELCOME! Pasok!</p>
-                    <p id="code-input" class="text-3xl font-mono tracking-widest mt-1">_</p>
-                </div>
-
-                <!-- Keypad --><div class="bg-gray-700 p-6 rounded-lg shadow-lg border-4 border-gray-800">
-                    <div class="grid grid-cols-4 gap-3">
-                        <!-- Numbers (rounded-md for squarer look) --><button onclick="pressKey('7')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">7</button>
-                        <button onclick="pressKey('8')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">8</button>
-                        <button onclick="pressKey('9')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">9</button>
-                        <button onclick="pressKey('A')" class="keypad-btn bg-orange-600 text-white p-4 rounded-md font-bold text-xl hover:bg-orange-500">A</button>
-
-                        <button onclick="pressKey('4')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">4</button>
-                        <button onclick="pressKey('5')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">5</button>
-                        <button onclick="pressKey('6')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">6</button>
-                        <button onclick="pressKey('B')" class="keypad-btn bg-orange-600 text-white p-4 rounded-md font-bold text-xl hover:bg-orange-500">B</button>
-
-                        <button onclick="pressKey('1')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">1</button>
-                        <button onclick="pressKey('2')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">2</button>
-                        <button onclick="pressKey('3')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">3</button>
-                        <!-- 'C' column button - now correctly calls pressKey('C') to input the letter -->
-                        <button onclick="pressKey('C')" class="keypad-btn bg-orange-600 text-white p-4 rounded-md font-bold text-xl hover:bg-orange-500">C</button>
-
-                        <!-- CLEAR button - now calls the dedicated clearInput() function -->
-                        <button onclick="clearInput()" class="keypad-btn bg-red-600 text-white p-4 rounded-md font-bold text-xl hover:bg-red-500 col-span-2">CLEAR</button>
-                        <button onclick="pressKey('0')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">0</button>
-                        <!-- 'ENTER' button is centered and sized correctly. -->
-                        <button onclick="pressEnter()" class="keypad-btn bg-green-500 text-white p-4 rounded-md font-bold text-xs hover:bg-green-400 flex items-center justify-center">ENTER</button>
-                    </div>
-                </div>
-
-                <!-- Output Slot --><div class="bg-gray-800 p-4 rounded-lg border-4 border-gray-900 shadow-xl">
-                    <p class="text-lg font-bold text-sky-400 mb-2">Output Slot - Enjoy!</p>
-                    <div id="output-slot" class="bg-gray-200 text-gray-700 p-4 rounded-md h-24 flex items-center justify-center font-bold text-sm text-center italic border-dashed border-2 border-gray-400">
-                        Nothing yet. Try pressing ENTER!
-                    </div>
-                </div>
-
-            </div>
+      <!-- 2. Controls & Display Area -->
+      <div class="lg:w-2/5 flex flex-col gap-6">
+        <!-- Display Screen -->
+        <div class="display-screen bg-blue-800 text-sky-300 p-3 rounded-lg border-4 border-blue-900 flex flex-col justify-center text-center">
+          <p id="message-display" class="xl font-mono font-bold">WELCOME! Pasok!</p>
+          <p id="code-input" class="text-3xl font-mono tracking-widest mt-1">_</p>
         </div>
+
+        <!-- Keypad -->
+        <div class="bg-gray-700 p-6 rounded-lg shadow-lg border-4 border-gray-800">
+          <div class="grid grid-cols-4 gap-3">
+            <button onclick="pressKey('7')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">7</button>
+            <button onclick="pressKey('8')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">8</button>
+            <button onclick="pressKey('9')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">9</button>
+            <button onclick="pressKey('A')" class="keypad-btn bg-orange-600 text-white p-4 rounded-md font-bold text-xl hover:bg-orange-500">A</button>
+
+            <button onclick="pressKey('4')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">4</button>
+            <button onclick="pressKey('5')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">5</button>
+            <button onclick="pressKey('6')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">6</button>
+            <button onclick="pressKey('B')" class="keypad-btn bg-orange-600 text-white p-4 rounded-md font-bold text-xl hover:bg-orange-500">B</button>
+
+            <button onclick="pressKey('1')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">1</button>
+            <button onclick="pressKey('2')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">2</button>
+            <button onclick="pressKey('3')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">3</button>
+            <button onclick="pressKey('C')" class="keypad-btn bg-orange-600 text-white p-4 rounded-md font-bold text-xl hover:bg-orange-500">C</button>
+
+            <button onclick="clearInput()" class="keypad-btn bg-red-600 text-white p-4 rounded-md font-bold text-xl hover:bg-red-500 col-span-2">CLEAR</button>
+            <button onclick="pressKey('0')" class="keypad-btn bg-gray-500 text-white p-4 rounded-md font-bold text-xl hover:bg-gray-400">0</button>
+            <button onclick="pressEnter()" class="keypad-btn bg-green-500 text-white p-4 rounded-md font-bold text-xs hover:bg-green-400 flex items-center justify-center">ENTER</button>
+          </div>
+        </div>
+
+        <!-- Output Slot -->
+        <div class="bg-gray-800 p-4 rounded-lg border-4 border-gray-900 shadow-xl">
+          <p class="text-lg font-bold text-sky-400 mb-2">Output Slot - Enjoy!</p>
+          <div id="output-slot" class="bg-gray-200 text-gray-700 p-4 rounded-md h-24 flex items-center justify-center font-bold text-sm text-center italic border-dashed border-2 border-gray-400">
+            Nothing yet. Try pressing ENTER!
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Mock Product Data with Pinoy Flair
-        const PRODUCTS = {
-            'A1': { name: 'Choc-Nut', price: 15.00, icon: '🥜', description: 'Classic peanut chocolate bar.' },
-            // UPDATED: Switched back to flatbread (🫓) for a thin, savory cracker look.
-            'A2': { name: 'SkyFlakes', price: 18.00, icon: '🫓', description: 'The original crackers.' }, 
-            'B1': { name: 'Zesto Dalandan', price: 12.00, icon: '🍹', description: 'Refreshing dalandan flavored juice.' },
-            // B2 is Mang Juan, using '🥔' (Potato) for chips/crisps.
-            'B2': { name: 'Mang Juan', price: 20.00, icon: '🥔', description: 'Spicy Chicharon snack.' }, 
-            'C1': { name: 'Pancit Canton', price: 35.00, icon: '🥡', description: 'Instant noodles, a quick meal.' },
-            'C2': { name: 'Polvoron', price: 10.00, icon: '🍬', description: 'Sweet powdery milk candy.' },
-        };
+  <!-- Footer -->
+  <footer class="footer">
+    © 2025 Pinoy Sarap Machine — A project by <strong>Jerelle</strong>. All rights reserved.
+  </footer>
 
-        let currentCode = '';
-        const MAX_CODE_LENGTH = 2;
-        const CURRENCY = 'NT$';
+  <script>
+    const PRODUCTS = {
+      'A1': { name: 'Choc-Nut', price: 15.00, icon: '🥜', description: 'Classic peanut chocolate bar.' },
+      'A2': { name: 'SkyFlakes', price: 18.00, icon: '🫓', description: 'The original crackers.' },
+      'B1': { name: 'Zesto Dalandan', price: 12.00, icon: '🍹', description: 'Refreshing dalandan flavored juice.' },
+      'B2': { name: 'Mang Juan', price: 20.00, icon: '🥔', description: 'Spicy Chicharon snack.' },
+      'C1': { name: 'Pancit Canton', price: 35.00, icon: '🥡', description: 'Instant noodles, a quick meal.' },
+      'C2': { name: 'Polvoron', price: 10.00, icon: '🍬', description: 'Sweet powdery milk candy.' },
+    };
 
-        const codeInput = document.getElementById('code-input');
-        const messageDisplay = document.getElementById('message-display');
-        const outputSlot = document.getElementById('output-slot');
-        const productGrid = document.getElementById('product-grid');
+    let currentCode = '';
+    const MAX_CODE_LENGTH = 2;
+    const CURRENCY = 'NT$';
 
-        // Function to render products dynamically
-        function renderProducts() {
-            let html = '';
-            for (const code in PRODUCTS) {
-                const product = PRODUCTS[code];
-                // Check if the icon value is an image path
-                const isImage = product.icon.includes('uploaded:'); 
-                let iconHtml;
+    const codeInput = document.getElementById('code-input');
+    const messageDisplay = document.getElementById('message-display');
+    const outputSlot = document.getElementById('output-slot');
+    const productGrid = document.getElementById('product-grid');
 
-                if (isImage) {
-                    // Use an <img> tag with the file path
-                    iconHtml = `<img src="${product.icon}" alt="${product.name}" class="product-image">`;
-                } else {
-                    // Use an emoji
-                    iconHtml = `<div class="text-5xl mb-2">${product.icon}</div>`;
-                }
+    function renderProducts() {
+      let html = '';
+      for (const code in PRODUCTS) {
+        const product = PRODUCTS[code];
+        html += `
+          <div id="item-${code}" class="product-item p-3 bg-gray-800 rounded-md text-center cursor-pointer shadow-md text-white border-2 border-gray-700" onclick="updateInput('${code}')">
+            <div class="text-5xl mb-2">${product.icon}</div>
+            <p class="font-bold text-lg">${product.name}</p>
+            <p class="text-sm text-sky-400 font-mono">${CURRENCY} ${product.price.toFixed(2)}</p>
+            <p class="text-xs mt-1 text-gray-400">Code: <span class="font-mono text-base font-extrabold">${code}</span></p>
+          </div>
+        `;
+      }
+      productGrid.innerHTML = html;
+    }
 
-                // NOTE: Product container uses 'rounded-md' which gives it a square/rectangular look.
-                html += `
-                    <div id="item-${code}" class="product-item p-3 bg-gray-800 rounded-md text-center cursor-pointer shadow-md text-white border-2 border-gray-700" onclick="updateInput('${code}')">
-                        ${iconHtml}
-                        <p class="font-bold text-lg">${product.name}</p>
-                        <p class="text-sm text-sky-400 font-mono">${CURRENCY} ${product.price.toFixed(2)}</p>
-                        <p class="text-xs mt-1 text-gray-400">Code: <span class="font-mono text-base font-extrabold">${code}</span></p>
-                    </div>
-                `;
-            }
-            productGrid.innerHTML = html;
-        }
+    window.onload = () => {
+      renderProducts();
+      updateDisplay();
+    };
 
-        // Initialize display and products on load
-        window.onload = () => {
-            renderProducts();
-            updateDisplay();
-        };
+    function clearInput() {
+      currentCode = '';
+      updateDisplay('Code Cleared! Ano order mo?');
+    }
 
-        // Function to clear the input (used by the dedicated CLEAR button)
-        function clearInput() {
-            currentCode = '';
-            updateDisplay('Code Cleared! Ano order mo?');
-        }
+    function updateDisplay(message = 'Pili na, bes!') {
+      messageDisplay.textContent = message;
+      codeInput.textContent = currentCode.padEnd(MAX_CODE_LENGTH, '_');
+      outputSlot.innerHTML = 'Nothing yet. Try pressing ENTER!';
+    }
 
-        // Update the code display
-        function updateDisplay(message = 'Pili na, bes!') {
-            messageDisplay.textContent = message;
-            codeInput.textContent = currentCode.padEnd(MAX_CODE_LENGTH, '_');
-            outputSlot.innerHTML = 'Nothing yet. Try pressing ENTER!';
-        }
+    function pressKey(key) {
+      if (currentCode.length < MAX_CODE_LENGTH) {
+        currentCode += key;
+        updateDisplay('Inputting code...');
+      } else {
+        updateDisplay(`Max code length (${MAX_CODE_LENGTH}) reached. Press ENTER.`);
+      }
+    }
 
-        // Handle key presses (numbers and A, B, C column letters)
-        function pressKey(key) {
-            if (currentCode.length < MAX_CODE_LENGTH) {
-                currentCode += key;
-                updateDisplay('Inputting code...');
-            } else {
-                updateDisplay(`Max code length (${MAX_CODE_LENGTH}) reached. Press ENTER.`);
-            }
-        }
+    function updateInput(code) {
+      currentCode = code;
+      updateDisplay(`Selected ${code}. Press ENTER to dispense.`);
+    }
 
-        // Handle quick input by clicking product
-        function updateInput(code) {
-            currentCode = code;
-            updateDisplay(`Selected ${code}. Press ENTER to dispense.`);
-        }
+    function pressEnter() {
+      const product = PRODUCTS[currentCode];
+      outputSlot.classList.remove('bg-gray-200');
 
-        // Handle ENTER press
-        function pressEnter() {
-            const product = PRODUCTS[currentCode];
-            outputSlot.classList.remove('bg-gray-200');
+      if (!product) {
+        messageDisplay.textContent = `Error: ${currentCode} is Invalid! Try Again.`;
+        outputSlot.innerHTML = `<span class="text-red-600">ERROR! Wrong code! Walang ganyan!</span>`;
+        outputSlot.classList.add('bg-red-300');
+      } else {
+        const message = `Salamat! Enjoy your ${product.name}! Eto na, sayo na!`;
+        messageDisplay.textContent = message;
+        outputSlot.innerHTML = `
+          <div class="text-2xl">${product.icon}</div>
+          <div class="text-sm text-gray-900 mt-2">
+            <span class="font-bold">${product.name}</span> dispensed! <br> ${CURRENCY} ${product.price.toFixed(2)} only.
+          </div>
+        `;
+        outputSlot.classList.add('bg-green-300');
+      }
 
-            if (!product) {
-                messageDisplay.textContent = `Error: ${currentCode} is Invalid! Try Again.`;
-                outputSlot.innerHTML = `<span class="text-red-600">ERROR! Wrong code! Walang ganyan!</span>`;
-                outputSlot.classList.add('bg-red-300');
-            } else {
-                // Check if the icon value is an image path
-                const isImage = product.icon.includes('uploaded:');
-                let outputIconHtml;
-
-                if (isImage) {
-                    // Use the image for the dispensed item
-                    outputIconHtml = `<img src="${product.icon}" alt="${product.name}" class="product-image w-16 h-16">`;
-                } else {
-                    // Use the emoji for the dispensed item
-                    outputIconHtml = `<div class="text-2xl">${product.icon}</div>`;
-                }
-
-                const message = `Salamat! Enjoy your ${product.name}! Eto na, sayo na!`;
-                messageDisplay.textContent = message;
-                outputSlot.innerHTML = `
-                    ${outputIconHtml}
-                    <div class="text-sm text-gray-900 mt-2">
-                        <span class="font-bold">${product.name}</span> dispensed! <br> ${CURRENCY} ${product.price.toFixed(2)} only.
-                    </div>
-                `;
-                outputSlot.classList.add('bg-green-300');
-            }
-
-            currentCode = '';
-            setTimeout(() => {
-                 outputSlot.classList.remove('bg-green-300', 'bg-red-300');
-                 outputSlot.classList.add('bg-gray-200');
-                 updateDisplay('Ready for next order. Bili na!');
-            }, 3000);
-        }
-
-    </script>
+      currentCode = '';
+      setTimeout(() => {
+        outputSlot.classList.remove('bg-green-300', 'bg-red-300');
+        outputSlot.classList.add('bg-gray-200');
+        updateDisplay('Ready for next order. Bili na!');
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
